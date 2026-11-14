@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX Motorsport | The World of Racing</title>
+<style>
+:root {
+  --red: #e3222b;
+  --dark: #101114;
+  --panel: #191a1f;
+  --muted: #a5a6ad;
+  --white: #ffffff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--dark);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+}
+header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  border-bottom: 1px solid #303137;
+  background: #111216;
+}
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.logo span { color: var(--red); }
+nav { display: flex; gap: 27px; }
+nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  transition: .2s;
+}
+nav a:hover { color: var(--red); }
+.lang {
+  background: var(--red);
+  color: white;
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.hero {
+  min-height: 490px;
+  padding: 100px 8%;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(12,13,16,.98), rgba(12,13,16,.78), rgba(12,13,16,.25)),
+    repeating-linear-gradient(135deg, #24252b 0px, #24252b 2px, #17181d 2px, #17181d 8px);
+  border-bottom: 4px solid var(--red);
+}
+.hero-content { max-width: 680px; }
+.tag {
+  color: var(--red);
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(42px, 7vw, 76px);
+  line-height: .98;
+  font-weight: 900;
+  margin-bottom: 22px;
+}
+.hero h1 span { color: var(--red); }
+.hero p {
+  color: #c4c4ca;
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 550px;
+}
+.search {
+  display: flex;
+  margin-top: 32px;
+  max-width: 560px;
+  gap: 8px;
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 16px;
+  background: #25262c;
+  color: white;
+  border: 1px solid #44454d;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.search button {
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 0 22px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+section { padding: 65px 8%; }
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.section-title h2 { font-size: 27px; }
+.section-title span { color: var(--red); }
+.championships {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+.champ {
+  background: var(--panel);
+  border: 1px solid #303137;
+  border-bottom: 3px solid var(--red);
+  padding: 27px 15px;
+  text-align: center;
+  border-radius: 5px;
+  transition: .2s;
+}
+.champ:hover {
+  transform: translateY(-5px);
+  background: #25262c;
+}
+.champ strong {
+  display: block;
+  font-size: 23px;
+  margin-bottom: 9px;
+}
+.champ small { color: var(--muted); }
+.events {
+  background: #15161a;
+}
+.event-list { display: grid; gap: 12px; }
+.event {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--panel);
+  padding: 20px;
+  border: 1px solid #303137;
+  border-radius: 5px;
+}
+.event-date {
+  min-width: 65px;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: bold;
+}
+.event-info { flex: 1; }
+.event-info strong { display: block; margin-bottom: 6px; }
+.event-info small { color: var(--muted); }
+.status {
+  color: #bdbdc3;
+  font-size: 11px;
+  border: 1px solid #555;
+  padding: 6px 9px;
+  border-radius: 3px;
+}
+footer {
+  padding: 35px 8%;
+  border-top: 1px solid #303137;
+  color: var(--muted);
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+footer strong { color: white; }
+@media(max-width: 850px) {
+  header { padding: 0 4%; }
+  nav { gap: 12px; }
+  nav a { font-size: 11px; }
+  .championships { grid-template-columns: repeat(3, 1fr); }
+}
+@media(max-width: 600px) {
+  header { height: auto; padding: 18px 5%; flex-wrap: wrap; gap: 15px; }
+  nav { order: 3; width: 100%; overflow-x: auto; padding-bottom: 5px; }
+  .hero { padding: 75px 6%; }
+  section { padding: 45px 6%; }
+  .championships { grid-template-columns: repeat(2, 1fr); }
+  .event { gap: 10px; padding: 14px; }
+  .status { display: none; }
+  footer { padding: 28px 6%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">APEX<span>.</span></div>
+  <nav>
+    <a href="#home" data-fr="ACCUEIL" data-en="HOME">ACCUEIL</a>
+    <a href="#championships" data-fr="CHAMPIONNATS" data-en="CHAMPIONSHIPS">CHAMPIONNATS</a>
+    <a href="#calendar" data-fr="CALENDRIER" data-en="CALENDAR">CALENDRIER</a>
+    <a href="#news" data-fr="ACTUALITÉS" data-en="NEWS">ACTUALITÉS</a>
+  </nav>
+  <button class="lang" id="language">EN</button>
+</header>
+
+<main>
+  <div class="hero" id="home">
+    <div class="hero-content">
+      <div class="tag" data-fr="LE MONDE DU SPORT AUTOMOBILE" data-en="THE WORLD OF MOTORSPORT">LE MONDE DU SPORT AUTOMOBILE</div>
+      <h1>FEEL THE<br><span>RACE.</span></h1>
+      <p data-fr="Toute l'actualité du sport automobile mondial. Calendriers, championnats, pilotes et événements réunis sur une seule plateforme."
+         data-en="Discover the world of motorsport. Calendars, championships, drivers and events, all in one platform.">
+        Toute l'actualité du sport automobile mondial. Calendriers, championnats, pilotes et événements réunis sur une seule plateforme.
+      </p>
+      <div class="search">
+        <input id="searchInput" type="search" placeholder="Rechercher un pilote, une course...">
+        <button onclick="searchSite()" data-fr="RECHERCHER" data-en="SEARCH">RECHERCHER</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="championships">
+    <div class="section-title">
+      <h2 data-fr="LES CHAMPIONNATS" data-en="CHAMPIONSHIPS">LES CHAMPIONNATS</h2>
+      <span>01 / 05</span>
+    </div>
+    <div class="championships">
+      <div class="champ"><strong>F1</strong><small>Formula 1</small></div>
+      <div class="champ"><strong>WEC</strong><small>World Endurance</small></div>
+      <div class="champ"><strong>WRC</strong><small>World Rally</small></div>
+      <div class="champ"><strong>GT</strong><small>GT Racing</small></div>
+      <div class="champ"><strong>MotoGP</strong><small>Motorcycle Racing</small></div>
+    </div>
+  </section>
+
+  <section class="events" id="calendar">
+    <div class="section-title">
+      <h2 data-fr="CALENDRIER DES COURSES" data-en="RACE CALENDAR">CALENDRIER DES COURSES</h2>
+      <span>2026 / 2027</span>
+    </div>
+    <div class="event-list">
+      <div class="event">
+        <div class="event-date">2026</div>
+        <div class="event-info">
+          <strong data-fr="Calendrier de Formule 1" data-en="Formula 1 Calendar">Calendrier de Formule 1</strong>
+          <small data-fr="Dates et circuits à venir" data-en="Upcoming dates and circuits">Dates et circuits à venir</small>
+        </div>
+        <div class="status">F1</div>
+      </div>
+      <div class="event">
+        <div class="event-date">2026</div>
+        <div class="event-info">
+          <strong data-fr="Calendrier du WEC" data-en="WEC Calendar">Calendrier du WEC</strong>
+          <small data-fr="Championnat du monde d'endurance" data-en="World Endurance Championship">Championnat du monde d'endurance</small>
+        </div>
+        <div class="status">WEC</div>
+      </div>
+      <div class="event">
+        <div class="event-date">2026</div>
+        <div class="event-info">
+          <strong data-fr="Calendrier MotoGP" data-en="MotoGP Calendar">Calendrier MotoGP</strong>
+          <small data-fr="Dates et circuits à venir" data-en="Upcoming dates and circuits">Dates et circuits à venir</small>
+        </div>
+        <div class="status">MotoGP</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="news">
+    <div class="section-title">
+      <h2 data-fr="L'UNIVERS APEX" data-en="THE APEX UNIVERSE">L'UNIVERS APEX</h2>
+      <span>DISCOVER MORE</span>
+    </div>
+    <p style="color:#aaa;line-height:1.8;max-width:650px"
+       data-fr="Découvrez les pilotes, les équipes, les circuits et les grandes compétitions qui font vibrer le sport automobile."
+       data-en="Discover the drivers, teams, circuits and major competitions that make motorsport exciting.">
+      Découvrez les pilotes, les équipes, les circuits et les grandes compétitions qui font vibrer le sport automobile.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <strong>APEX MOTORSPORT</strong>
+  <span data-fr="La passion de la course, partout dans le monde." data-en="The passion of racing, around the world.">La passion de la course, partout dans le monde.</span>
+  <span>© 2026 APEX Motorsport</span>
+</footer>
+
+<script>
+let currentLanguage = "fr";
+
+document.getElementById("language").addEventListener("click", function() {
+  currentLanguage = currentLanguage === "fr" ? "en" : "fr";
+  document.documentElement.lang = currentLanguage;
+  document.querySelectorAll("[data-fr]").forEach(element => {
+    element.textContent = element.dataset[currentLanguage];
+  });
+  this.textContent = currentLanguage === "fr" ? "EN" : "FR";
+  document.getElementById("searchInput").placeholder =
+    currentLanguage === "fr"
+      ? "Rechercher un pilote, une course..."
+      : "Search for a driver or race...";
+});
+
+function searchSite() {
+  const query = document.getElementById("searchInput").value.trim();
+  if (!query) {
+    alert(currentLanguage === "fr" ? "Entre un nom à rechercher." : "Enter a search term.");
+    return;
+  }
+  alert(currentLanguage === "fr"
+    ? "La recherche avancée sera ajoutée dans une prochaine version."
+    : "Advanced search will be added in a future version.");
+}
+</script>
+</body>
+</html>
