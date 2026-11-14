@@ -470,6 +470,189 @@ renderDrivers(drivers);
 
 let english=false;
 function toggleLanguage(){
+
+// ==========================================
+// APEX MOTORSPORT — PHOTOS PAR DISCIPLINE
+// ==========================================
+
+const apexImageQueries = {
+  hero: "Formula One Grand Prix racing circuit",
+  f1: "Formula One racing car Grand Prix",
+  endurance: "Le Mans 24 Hours Hypercar endurance racing",
+  rally: "World Rally Championship rally car",
+  gt: "GT3 racing championship circuit",
+  motogp: "MotoGP motorcycle Grand Prix racing",
+  indy: "IndyCar racing championship",
+  ajith: "Ajith Kumar racing driver motorsport"
+};
+
+const apexImageCache = {};
+
+async function apexFindImage(query, keywords) {
+  if (apexImageCache[query]) return apexImageCache[query];
+
+  const params = new URLSearchParams({
+    action: "query",
+    generator: "search",
+    gsrsearch: query,
+    gsrnamespace: "6",
+    gsrlimit: "20",
+    prop: "imageinfo",
+    iiprop: "url",
+    iiurlwidth: "1200",
+    format: "json",
+    origin: "*"
+  });
+
+  try {
+    const response = await fetch(
+      "https://commons.wikimedia.org/w/api.php?" + params
+    );
+
+    if (!response.ok) throw new Error("Recherche impossible");
+
+    const data = await response.json();
+    const pages = Object.values(data.query?.pages || {});
+
+    const valid = pages
+      .filter(page => {
+        const title = page.title.toLowerCase();
+        const image = page.imageinfo?.[0]?.thumburl;
+
+        return image &&
+          /\.(jpg|jpeg|png|webp)$/i.test(title) &&
+          !/logo|icon|flag|map|poster|drawing|diagram/i.test(title);
+      })
+      .map(page => {
+        const title = page.title.toLowerCase();
+        const score = keywords.reduce(
+          (total, word) => total + (title.includes(word) ? 1 : 0),
+          0
+        );
+
+        return {
+          url: page.imageinfo[0].thumburl,
+          score
+        };
+      })
+      .sort((a, b) => b.score - a.score);
+
+    if (!valid.length || valid[0].score === 0) return null;
+
+    apexImageCache[query] = valid[0].url;
+    return valid[0].url;
+
+  } catch (error) {
+    console.warn("APEX MOTORSPORT photo:", error);
+    return null;
+  }
+}
+
+async function apexSetImage(element, query, keywords) {
+  if (!element) return;
+
+  const url = await apexFindImage(query, keywords);
+
+  if (url) {
+    element.src = url;
+  }
+}
+
+async function apexUpdatePhotos() {
+
+  // Grande image d'accueil
+  const hero = document.querySelector(".hero");
+
+  const heroImage = await apexFindImage(
+    apexImageQueries.hero,
+    ["formula", "grand", "prix", "racing"]
+  );
+
+  if (heroImage && hero) {
+    hero.style.backgroundImage =
+      `linear-gradient(90deg,rgba(0,0,0,.9),rgba(0,0,0,.2)),url("${heroImage}")`;
+  }
+
+  // Actualités
+  document.querySelectorAll(".news-card").forEach(card => {
+    const tag = card.querySelector(".tag")?.textContent.toLowerCase() || "";
+
+    if (tag.includes("endurance")) {
+      apexSetImage(card.querySelector("img"), apexImageQueries.endurance,
+        ["lemans", "endurance", "hypercar", "prototype"]);
+    } else if (tag.includes("rally")) {
+      apexSetImage(card.querySelector("img"), apexImageQueries.rally,
+        ["rally", "wrc", "rallye"]);
+    } else {
+      apexSetImage(card.querySelector("img"), apexImageQueries.f1,
+        ["formula", "grand", "prix", "racing"]);
+    }
+  });
+
+  // Championnats
+  document.querySelectorAll(".champ").forEach(card => {
+    const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
+
+    let query = apexImageQueries.f1;
+    let keywords = ["formula", "grand", "prix"];
+
+    if (title.includes("wec")) {
+      query = apexImageQueries.endurance;
+      keywords = ["lemans", "wec", "hypercar", "endurance"];
+    } else if (title.includes("wrc")) {
+      query = apexImageQueries.rally;
+      keywords = ["rally", "wrc"];
+    } else if (title.includes("gt3")) {
+      query = apexImageQueries.gt;
+      keywords = ["gt3", "gt", "racing"];
+    } else if (title.includes("motogp")) {
+      query = apexImageQueries.motogp;
+      keywords = ["motogp", "motorcycle", "moto"];
+    }
+
+    apexSetImage(card.querySelector("img"), query, keywords);
+  });
+
+  // Disciplines
+  document.querySelectorAll(".discipline").forEach(card => {
+    const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
+
+    let query = apexImageQueries.f1;
+    let keywords = ["formula", "grand", "prix"];
+
+    if (title.includes("endurance")) {
+      query = apexImageQueries.endurance;
+      keywords = ["lemans", "endurance", "hypercar"];
+    } else if (title.includes("rally")) {
+      query = apexImageQueries.rally;
+      keywords = ["rally", "wrc"];
+    } else if (title.includes("gt")) {
+      query = apexImageQueries.gt;
+      keywords = ["gt3", "gt", "racing"];
+    } else if (title.includes("motogp")) {
+      query = apexImageQueries.motogp;
+      keywords = ["motogp", "motorcycle"];
+    } else if (title.includes("indycar")) {
+      query = apexImageQueries.indy;
+      keywords = ["indycar", "racing"];
+    }
+
+    apexSetImage(card.querySelector("img"), query, keywords);
+  });
+
+  // Section spéciale Ajith Kumar
+  const ajithImage = document.querySelector(".feature img");
+
+  apexSetImage(
+    ajithImage,
+    apexImageQueries.ajith,
+    ["ajith", "kumar", "racing", "motorsport"]
+  );
+}
+
+// Lancement du chargement des images
+apexUpdatePhotos();
+
 english=!english;
 document.getElementById("langBtn").textContent=english?"FR":"EN";
 alert(english?"English interface is being prepared. Driver biographies are currently in French.":"L'interface française est affichée.");
