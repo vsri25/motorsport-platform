@@ -228,36 +228,41 @@ footer strong { color: white; }
     </div>
   </div>
 
-  <script>
-  function showChampDetails(type) {
-    const box = document.getElementById('champ-details-box');
-    const title = document.getElementById('champ-title');
-    const text = document.getElementById('champ-text');
-    
-    box.style.display = 'block'; // Affiche la boîte
+  <section id="championships">
+  <div class="section-title">
+    <h2 data-fr="LES CHAMPIONNATS" data-en="CHAMPIONSHIPS">LES CHAMPIONNATS</h2>
+    <span>01 / 05</span>
+  </div>
 
-    if (type === 'f1') {
-      title.innerText = "FORMULA 1 (F1)";
-      text.innerHTML = "<strong>Création :</strong> 1950<br><strong>Statut :</strong> La catégorie reine du sport automobile mondial.<br><strong>Légendes historiques :</strong> Michael Schumacher, Lewis Hamilton, Ayrton Senna, Alain Prost, Juan Manuel Fangio, Sebastian Vettel.<br><strong>Pilotes phares actuels :</strong> Max Verstappen, Lewis Hamilton, Charles Leclerc, Lando Norris, Oscar Piastri, George Russell, Fernando Alonso.";
-    } 
-    else if (type === 'wec') {
-      title.innerText = "WORLD ENDURANCE CHAMPIONSHIP (WEC) & 24H DU MANS";
-      text.innerHTML = "<strong>Création :</strong> 2012 (succédant au championnat créé en 1953)<br><strong>Statut :</strong> L'épreuve reine de la résistance mécanique et humaine.<br><strong>Légendes historiques :</strong> Tom Kristensen ('Mr Le Mans', 9 victoires), Jacky Ickx, Derek Bell.<br><strong>Pilotes phares actuels :</strong> Sébastien Buemi, Brendon Hartley, Kamui Kobayashi, Kevin Estre, Valentino Rossi.";
-    } 
-    else if (type === 'wrc') {
-      title.innerText = "WORLD RALLY CHAMPIONSHIP (WRC)";
-      text.innerHTML = "<strong>Création :</strong> 1973<br><strong>Statut :</strong> Le championnat du monde des rallyes (asphalte, terre, neige et glace).<br><strong>Légendes historiques :</strong> Sébastien Loeb (9 titres), Sébastien Ogier (8 titres), Juha Kankkunen, Colin McRae.<br><strong>Pilotes phares actuels :</strong> Sébastien Ogier, Kalle Rovanperä, Thierry Neuville, Ott Tänak, Elfyn Evans.";
-    } 
-    else if (type === 'gt') {
-      title.innerText = "GT RACING & MICHELIN LE MANS CUP";
-      text.innerHTML = "<strong>Création Le Mans Cup :</strong> 2016<br><strong>Statut :</strong> L'antichambre officielle de l'Endurance (catégories LMP3, LMP3 Pro/Am, GT3).<br><strong>Figure spéciale & Pilote :</strong> Ajith Kumar (star du cinéma tamoul 'Thala', pilote de la Ligier LMP3 Pro/Am #16 chez Ajith RedAnt by Virage).<br><strong>Pilotes notables :</strong> Romain Vozniak, Gillian Henrion, Valentino Rossi (en GT3).";
-    } 
-    else if (type === 'motogp') {
-      title.innerText = "MOTOGP";
-      text.innerHTML = "<strong>Création :</strong> 1949 (Championnat du monde moto)<br><strong>Statut :</strong> Le summum de la vitesse sur deux roues.<br><strong>Légendes historiques :</strong> Giacomo Agostini, Valentino Rossi, Marc Márquez, Mick Doohan, Jorge Lorenzo.<br><strong>Pilotes phares actuels :</strong> Marc Márquez, Francesco Bagnaia, Jorge Martín, Fabio Quartararo, Pedro Acosta.";
-    }
-  }
-</script>
+  <div class="championships">
+    <div class="champ" onclick="showChampDetails('f1')">
+      <strong>F1</strong>
+      <small>Formula 1</small>
+    </div>
+    <div class="champ" onclick="showChampDetails('wec')">
+      <strong>WEC</strong>
+      <small>World Endurance</small>
+    </div>
+    <div class="champ" onclick="showChampDetails('wrc')">
+      <strong>WRC</strong>
+      <small>World Rally</small>
+    </div>
+    <div class="champ" onclick="showChampDetails('gt')">
+      <strong>GT</strong>
+      <small>GT Racing & Le Mans Cup</small>
+    </div>
+    <div class="champ" onclick="showChampDetails('motogp')">
+      <strong>MotoGP</strong>
+      <small>Motorcycle Racing</small>
+    </div>
+  </div>
+
+  <!-- Boîte où l'histoire s'affichera au clic -->
+  <div id="champ-details-box" class="calendar" style="margin-top: 20px; display: none;">
+    <h3 id="champ-title" style="color: #ff3333; margin-bottom: 10px;">Sélectionnez un championnat</h3>
+    <p id="champ-text">Cliquez sur l'une des cases ci-dessus pour découvrir l'histoire, les légendes et les pilotes phares de la discipline.</p>
+  </div>
+</section>
 
   <section class="events" id="calendar">
   <div class="section-title">
@@ -524,7 +529,36 @@ function filterDrivers() {
   });
 }
 
+<script>
+  function showChampDetails(type) {
+    const box = document.getElementById('champ-details-box');
+    const title = document.getElementById('champ-title');
+    const text = document.getElementById('champ-text');
+    
+    box.style.display = 'block';
 
+    if (type === 'f1') {
+      title.innerText = "FORMULA 1 (F1)";
+      text.innerHTML = "<strong>Création :</strong> 1950<br><strong>Statut :</strong> La catégorie reine du sport automobile mondial.<br><strong>Légendes historiques :</strong> Michael Schumacher, Lewis Hamilton, Ayrton Senna, Alain Prost, Juan Manuel Fangio, Sebastian Vettel.<br><strong>Pilotes phares actuels :</strong> Max Verstappen, Lewis Hamilton, Charles Leclerc, Lando Norris, Oscar Piastri, George Russell, Fernando Alonso.";
+    } 
+    else if (type === 'wec') {
+      title.innerText = "WORLD ENDURANCE CHAMPIONSHIP (WEC) & 24H DU MANS";
+      text.innerHTML = "<strong>Création :</strong> 2012 (succédant au championnat créé en 1953)<br><strong>Statut :</strong> L'épreuve reine de la résistance mécanique et humaine.<br><strong>Légendes historiques :</strong> Tom Kristensen ('Mr Le Mans', 9 victoires), Jacky Ickx, Derek Bell.<br><strong>Pilotes phares actuels :</strong> Sébastien Buemi, Brendon Hartley, Kamui Kobayashi, Kevin Estre, Valentino Rossi.";
+    } 
+    else if (type === 'wrc') {
+      title.innerText = "WORLD RALLY CHAMPIONSHIP (WRC)";
+      text.innerHTML = "<strong>Création :</strong> 1973<br><strong>Statut :</strong> Le championnat du monde des rallyes (asphalte, terre, neige et glace).<br><strong>Légendes historiques :</strong> Sébastien Loeb (9 titres), Sébastien Ogier (8 titres), Juha Kankkunen, Colin McRae.<br><strong>Pilotes phares actuels :</strong> Sébastien Ogier, Kalle Rovanperä, Thierry Neuville, Ott Tänak, Elfyn Evans.";
+    } 
+    else if (type === 'gt') {
+      title.innerText = "GT RACING & MICHELIN LE MANS CUP";
+      text.innerHTML = "<strong>Création Le Mans Cup :</strong> 2016<br><strong>Statut :</strong> L'antichambre officielle de l'Endurance (catégories LMP3, LMP3 Pro/Am, GT3).<br><strong>Figure spéciale & Pilote :</strong> Ajith Kumar (star du cinéma tamoul 'Thala', pilote de la Ligier LMP3 Pro/Am #16 chez Ajith RedAnt by Virage).<br><strong>Pilotes notables :</strong> Romain Vozniak, Gillian Henrion, Valentino Rossi.";
+    } 
+    else if (type === 'motogp') {
+      title.innerText = "MOTOGP";
+      text.innerHTML = "<strong>Création :</strong> 1949 (Championnat du monde moto)<br><strong>Statut :</strong> Le summum de la vitesse sur deux roues.<br><strong>Légendes historiques :</strong> Giacomo Agostini, Valentino Rossi, Marc Márquez, Mick Doohan, Jorge Lorenzo.<br><strong>Pilotes phares actuels :</strong> Marc Márquez, Francesco Bagnaia, Jorge Martín, Fabio Quartararo, Pedro Acosta.";
+    }
+  }
+</script>
 </script>
 </body>
 </html>
