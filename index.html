@@ -351,14 +351,34 @@ document.getElementById("language").addEventListener("click", function() {
 
 function searchSite() {
   const query = document.getElementById("searchInput").value.trim();
+
   if (!query) {
-    alert(currentLanguage === "fr" ? "Entre un nom à rechercher." : "Enter a search term.");
+    alert("Entre un nom à rechercher.");
     return;
   }
-  alert(currentLanguage === "fr"
-    ? "La recherche avancée sera ajoutée dans une prochaine version."
-    : "Advanced search will be added in a future version.");
+
+  document.getElementById("driverSearch").value = query;
+
+  document.getElementById("driverList").scrollIntoView({
+    behavior: "smooth"
+  });
+
+  filterDrivers();
 }
+
+function filterDrivers() {
+  const query = document.getElementById("searchInput")
+    .value.toLowerCase().trim();
+
+  const drivers = document.querySelectorAll(".driver");
+
+  drivers.forEach(driver => {
+    const match = driver.textContent.toLowerCase().includes(query);
+    driver.style.display = match ? "" : "none";
+  });
+}
+
+
 </script>
 </body>
 </html>
