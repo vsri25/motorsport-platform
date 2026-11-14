@@ -531,11 +531,15 @@ function filterDrivers() {
 
 <script>
   function showChampDetails(type) {
+    alert("Le clic fonctionne pour : " + type); // Petite alerte test
+    
     const box = document.getElementById('champ-details-box');
     const title = document.getElementById('champ-title');
     const text = document.getElementById('champ-text');
     
-    box.style.display = 'block';
+    if (box) {
+      box.style.display = 'block';
+    }
 
     if (type === 'f1') {
       title.innerText = "FORMULA 1 (F1)";
@@ -559,6 +563,6 @@ function filterDrivers() {
     }
   }
 </script>
-</script>
+
 </body>
 </html>
